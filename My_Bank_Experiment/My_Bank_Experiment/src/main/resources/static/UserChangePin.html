@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change PIN</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .card {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .card-header {
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-back {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      Change PIN
+    </div>
+    <div class="card-body">
+      <form id="changePinForm">
+        <div class="form-group">
+          <label for="accountNumber">Account Number:</label>
+          <input type="text" class="form-control" id="accountNumber" placeholder="Enter Account Number" required>
+        </div>
+        <div class="form-group">
+          <label for="fullName">Full Name:</label>
+          <input type="text" class="form-control" id="fullName" placeholder="Enter Full Name" required>
+        </div>
+        <div class="form-group">
+          <label for="newPin">New ATM PIN:</label>
+          <input type="password" class="form-control" id="newPin" placeholder="Enter New ATM PIN" required>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="changePin()">Change PIN</button>
+        <button type="button" class="btn btn-secondary" onclick="cancelChange()">Cancel</button>
+        <button type="button" class="btn btn-danger" onclick="goBack()" style="margin-left:80px;">Go Back</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    var maxOtpAttempts = 3;
+    var currentOtpAttempts = 0;
+
+    function changePin() {
+      var accountNumber = document.getElementById('accountNumber').value;
+      var fullName = document.getElementById('fullName').value;
+      var newPin = document.getElementById('newPin').value;
+
+      if (accountNumber && fullName && newPin && !isNaN(newPin) && newPin >= 0) {
+        var confirmDetails = confirm("Your Details for Confirmation: " + accountNumber + " - " + fullName + "\n\nConfirm with Your Details?");
+
+        if (confirmDetails) {
+          var otp = generateOTP();
+          alert("Your OTP Number For Verification: " + otp);
+
+          var enterOtp;
+          do {
+            var otpInput = prompt("Enter Your OTP Number For Verification:");
+
+            if (otpInput && otpInput.match(/^\d+$/)) {
+              enterOtp = parseInt(otpInput);
+              if (otp != enterOtp) {
+                alert("Invalid OTP. Please enter the correct OTP.");
+                currentOtpAttempts++;
+              }
+            } else {
+              alert("Invalid OTP. Please enter a valid numeric OTP.");
+              enterOtp = -1;
+              currentOtpAttempts++;
+            }
+
+            if (currentOtpAttempts >= maxOtpAttempts) {
+              alert("You've reached the maximum number of OTP attempts. Operation canceled.");
+              return;
+            }
+          } while (otp != enterOtp);
+
+          alert("Entered OTP Valid.\nYour Mobile Number Verified Successfully.");
+
+          alert("New ATM PIN set successfully: " + newPin);
+
+          // Clear form fields
+          document.getElementById('accountNumber').value = '';
+          document.getElementById('fullName').value = '';
+          document.getElementById('newPin').value = '';
+
+          // Redirect to UserChangePin.html
+          window.location.href = "UserChangePin.html";
+        }
+      } else {
+        alert("Please fill in all the details and enter a valid PIN.");
+      }
+    }
+
+    function generateOTP() {
+      return Math.floor(1000 + Math.random() * 9000);
+    }
+
+    function cancelChange() {
+      // Clear form fields
+      document.getElementById('accountNumber').value = '';
+      document.getElementById('fullName').value = '';
+      document.getElementById('newPin').value = '';
+
+      // Redirect to UserChangePin.html
+      window.location.href = "UserChangePin.html";
+    }
+
+    function goBack() {
+      window.location.href = "UserMenu.html";
+    }
+  </script>
+
+</body>
+
+</html>

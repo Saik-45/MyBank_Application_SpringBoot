@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY Bank - New User</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: gold;
+            font-family: Arial, sans-serif;
+            margin: 10px;
+        }
+
+        header {
+            text-align: center;
+            padding: 2px;
+            background-color: #333;
+            color: white;
+        }
+
+        nav {
+            text-align: center;
+            padding: 20px;
+            background-color: #555;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        nav a:hover {
+            background-color: gray;
+        }
+
+        h2 {
+            text-align: center;
+            background-color: gray;
+            color: gold;
+            padding: 20px;
+        }
+
+        form {
+            margin-top: 5px;
+        }
+
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 2px solid black;
+            color: blue;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .blue-label {
+            color: white;
+        }
+
+        .button-container {
+            margin-top: 35px;
+            text-align: center;
+        }
+
+        #successMessage {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            border-radius: 5px;
+        }
+
+        .account-creation-section {
+            background-color: green;
+            padding: 15px;
+            border-radius: 70px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- New User Page -->
+<header>
+    <h2>New User</h2>
+</header>
+<nav>
+    <a href="UserMenu.html">User Menu</a>
+    <a href="AdminMenu.html">Admin Menu</a>
+    <a href="welcome.html">Home Page</a>
+</nav>
+
+<div id="successMessage" class="container">
+    <h2 style="color: blue">Account created successfully.</h2>
+    <h3 id="generatedAccountNumber" style="color: black;" align="center"></h3>
+</div>
+
+<form id="myForm" method="post" action="newUser">
+    <div class="container account-creation-section">
+        <h2 class="mt-3 mb-4 text-center">Account Creating</h2>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="blue-label" for="firstName" style="margin-left: 30px;">First Name:</label>
+                <input type="text" id="firstName" name="firstName" class="form-control"
+                       style="width: 400px; margin-left: 30px;" placeholder="Enter first name (min 3 characters)"
+                       required>
+            </div>
+            <div class="col-md-6">
+                <label class="blue-label" for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" class="form-control" style="width: 400px;"
+                       placeholder="Enter last name (min 3 characters)" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="blue-label" for="phoneNumber" style="margin-left: 30px;">Phone Number:</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
+                       style="width: 400px; margin-left: 30px;" placeholder="Enter phone number" pattern="^\d{10}$"
+                       title="Please enter a valid 10-digit phone number" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="blue-label" for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" class="form-control" style="width: 400px; "
+                       placeholder="Select date of birth" required>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="blue-label" for="email" style="margin-left: 30px;">Email:</label>
+                <input type="email" id="email" name="email" class="form-control"
+                       style="width: 400px; margin-left: 30px;" placeholder="Enter a valid email" required>
+            </div>
+            <div class="col-md-6">
+                <label class="blue-label" for="atmPin">ATM PIN:</label>
+                <input type="password" id="atmPin" name="atmPin" class="form-control" style="width: 400px;"
+                       placeholder="Enter ATM PIN (4 digits)" pattern="\d{4}" required>
+            </div>
+        </div>
+        <div class="button-container">
+            <button type="button" class="btn btn-primary" onclick="submitForm()">Submit</button>
+            <button type="button" class="btn btn-secondary" onclick="clearForm()">Cancel</button>
+        </div>
+    </div>
+</form>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    var accountNumberCounter = 9871236540;
+
+    function submitForm() {
+        // Check form field validity before proceeding
+        if (!validateForm()) {
+            return false;
+        }
+
+        // Increment the account number counter
+        accountNumberCounter++;
+
+        // Get the generated account number
+        var accountNumber = generateAccountNumber();
+
+        // Display the generated account number
+        document.getElementById('generatedAccountNumber').innerText = "Account Number : " + accountNumber;
+
+        // Clear form fields
+        clearFormFields();
+
+        // Show success message
+        document.getElementById('successMessage').style.display = 'block';
+
+        // Prevent form submission (since we handled it through JavaScript)
+        return false;
+    }
+
+    function validateForm() {
+        // Add your validation logic here
+        var firstName = document.getElementById('firstName').value;
+        var lastName = document.getElementById('lastName').value;
+        var phoneNumber = document.getElementById('phoneNumber').value;
+        var dob = document.getElementById('dob').value;
+        var email = document.getElementById('email').value;
+        var atmPin = document.getElementById('atmPin').value;
+
+        // Add more conditions based on your validation requirements
+        if (firstName.length < 3 || lastName.length < 3 || phoneNumber.length !== 10 || !isValidDate(dob) || !isValidEmail(email) || atmPin.length !== 4) {
+            alert("Please fill in all fields correctly.");
+            return false;
+        }
+
+        return true;
+    }
+
+    function isValidDate(dateString) {
+        // You may implement a more sophisticated date validation logic if needed
+        return dateString !== "";
+    }
+
+    function isValidEmail(email) {
+        // You may implement a more sophisticated email validation logic if needed
+        return email !== "";
+    }
+
+    function generateAccountNumber() {
+        return accountNumberCounter;
+    }
+
+    function clearFormFields() {
+        // You can add more fields to clear if needed
+        document.getElementById('firstName').value = '';
+        document.getElementById('lastName').value = '';
+        document.getElementById('phoneNumber').value = '';
+        document.getElementById('dob').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('atmPin').value = '';
+    }
+
+    function clearForm() {
+        document.getElementById('myForm').reset();
+        document.getElementById('successMessage').style.display = 'none';
+    }
+</script>
+</body>
+
+</html>
+
+

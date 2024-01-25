@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <title>User Balance Check</title>
+  <style>
+    body {
+      background-color: chocolate;
+    }
+
+    .menu-container {
+      background-color: #007bff;
+      color: #ffffff; /* White text color */
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+    }
+
+    .btn-primary {
+      background-color: blue; /* Blue background color for buttons */
+      border-color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #333333; /* Darker shade on hover */
+      border-color: green;
+    }
+
+    .table-container {
+      background-color: pink;
+      padding: 20px;
+      border-radius: 50px;
+      margin-top: 10px;
+      display: none; /* Initially hide the table container */
+    }
+
+    .center {
+      text-align: center;
+      background-color: gray; /* Gray background color */
+      padding: 5px; /* Add padding to the container */
+      border-radius: 30px; /* Add border-radius for rounded corners */
+      margin-top: 20px; /* Add margin at the top */
+    }
+
+    .center button {
+      margin: 20px; /* Add margin between the buttons */
+    }
+  </style>
+</head>
+<body>
+
+<div class="container menu-container">
+  <h2 class="text-center">Check Balance</h2>
+  <button class="btn btn-danger go-back-btn" onclick="goBack()">Go Back</button>
+</div>
+
+<div class="container center">
+  <button type="button" class="btn btn-primary" onclick="toggleTableContainer('accountTableContainer')">Account Number</button>
+  <button type="button" class="btn btn-primary" onclick="toggleTableContainer('atmPinTableContainer')">ATM Pin</button>
+</div>
+
+<div class="container table-container" id="accountTableContainer">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <table class="table" style="margin-top: 30px;">
+        <thead>
+        <tr>
+          <th scope="col" colspan="2">Check Balance With Account Number</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><label for="accountNumber">Enter Account Number:</label></td>
+          <td><input type="text" class="form-control" id="accountNumber" placeholder="Account Number"></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button type="button" class="btn btn-primary" onclick="checkBalanceByAccountNumber()">Get Balance</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div id="balanceResult"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container table-container" id="atmPinTableContainer">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <table class="table" style="margin-top: 30px;">
+        <thead>
+        <tr>
+          <th scope="col" colspan="2">Check Balance With ATM Pin</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><label for="atmPin">Enter ATM Pin:</label></td>
+          <td><input type="password" class="form-control" id="atmPin" placeholder="ATM Pin"></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button type="button" class="btn btn-primary" onclick="checkBalanceByATMPin()">Get Balance</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div id="atmPinResult"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    function goBack() {
+      window.location.href = "UserMenu.html";
+    }
+
+    function toggleTableContainer(containerId) {
+      var accountTableContainer = document.getElementById('accountTableContainer');
+      var atmPinTableContainer = document.getElementById('atmPinTableContainer');
+
+      // Hide both containers
+      accountTableContainer.style.display = 'none';
+      atmPinTableContainer.style.display = 'none';
+
+      // Show the selected container
+      var selectedContainer = document.getElementById(containerId);
+      selectedContainer.style.display = 'block';
+    }
+
+    function checkBalanceByAccountNumber() {
+        // Implement JavaScript logic to handle account number input and display balance result
+        // You can use AJAX to send the input to the server if you want to interact with a backend.
+        // Update the #balanceResult div with the result.
+        // Example: document.getElementById('balanceResult').innerHTML = "Balance: $1000";
+    }
+
+    function checkBalanceByATMPin() {
+        // Implement JavaScript logic to handle ATM pin input and display balance result
+        // You can use AJAX to send the input to the server if you want to interact with a backend.
+        // Update the #atmPinResult div with the result.
+        // Example: document.getElementById('atmPinResult').innerHTML = "Balance: $1500";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bank - Admin Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: white;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+        }
+
+        nav {
+            text-align: center;
+            padding: 20px;
+            background-color: #555;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        nav a:hover {
+            background-color: #777;
+        }
+
+        h2 {
+            text-align: center;
+            background-color: gray;
+            color: blue;
+            padding: 10px;
+        }
+
+        h1 {
+            color: yellow;
+            text-align: center;
+        }
+
+        h1 span {
+            color: green;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h2>Admin Menu</h2>
+</header>
+
+<nav>
+    <a href="NewUser.html">New User</a>
+    <a href="UserMenu.html">User Menu</a>
+    <a href="welcome.html">Home Page</a>
+</nav>
+
+<div class="container">
+    <h2>Login</h2>
+    <form id="loginForm" method="AdminMenu">
+        <div class="form-group">
+            <label for="userName">User Name:</label>
+            <input type="text" class="form-control" id="userName" placeholder="Enter User Name" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter Password" required>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="login()">Login</button>
+    </form>
+    <p class="text-center mt-3">- OR -</p>
+    <p class="text-center"><a href="#" onclick="goToMainMenu()">Back to Main Menu</a></p>
+</div>
+
+<script>
+        function goToMainMenu() {
+            window.location.href = "welcome.html";
+        }
+
+        function login() {
+            var userNameInput = document.getElementById("userName").value;
+            var passwordInput = document.getElementById("password").value;
+
+            // Check if the provided credentials are valid
+            if (userNameInput === "MyBank" && passwordInput === "MyBank@2024") {
+              //  alert("Login successful! Redirecting to the main menu.");
+                window.location.href = "Admin Services.html";
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        }
+    </script>
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap components) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

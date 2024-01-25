@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Transfer Money</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: gray;
+    }
+
+    .menu-container {
+      background-color: #007bff;
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+
+    .center-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      width: 400px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    /* Adjusted width for form fields */
+    .form-control {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container menu-container center-form">
+  <div class="form-container">
+    <h2 class="text-center">Transfer Money</h2>
+    <div class="form-group">
+      <label for="senderAccountNumber">Sender's Account Number:</label>
+      <input type="text" class="form-control" id="senderAccountNumber" placeholder="Enter Sender's Account Number" required>
+    </div>
+    <div class="form-group">
+      <label for="receiverAccountNumber">Receiver's Account Number:</label>
+      <input type="text" class="form-control" id="receiverAccountNumber" placeholder="Enter Receiver's Account Number" required>
+    </div>
+    <div class="form-group">
+      <label for="transferAmount">Transfer Amount:</label>
+      <input type="text" class="form-control" id="transferAmount" placeholder="Enter Transfer Amount" required>
+    </div>
+    <button class="btn btn-info" onclick="performTransfer()">Transfer Money</button>
+    <button class="btn btn-danger" onclick="goBack()" style="margin-left: 150px;">Go Back</button>
+  </div>
+</div>
+
+<script>
+    function performTransfer() {
+      var senderAccountNumber = document.getElementById('senderAccountNumber').value;
+      var receiverAccountNumber = document.getElementById('receiverAccountNumber').value;
+      var transferAmount = document.getElementById('transferAmount').value;
+
+      // Implement your transfer logic here based on the input values
+
+      // For example, you can use AJAX to send the data to the server and perform the transfer
+      // You can handle success or failure accordingly
+
+      alert("Transfer logic not implemented in this example.");
+    }
+
+    function goBack() {
+      window.location.href = "UserMenu.html";
+    }
+  </script>
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap components) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User MiniStatement</title>
+  <link rel="stylesheet" href="/css/styles.css" href="@{/css/styles.css}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .menu-container {
+            background-color: #007bff;
+            color: #ffffff;
+            /* White text color */
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            /* Bootstrap primary color for button */
+            border-color: #007bff;
+        }
+
+        .btn-secondary {
+            background-color: maroon;
+            /* Maroon color for secondary button */
+            border-color: maroon;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            /* Darker shade on hover */
+            border-color: #0056b3;
+        }
+
+        .statement-container {
+            margin-top: 20px;
+        }
+
+        form {
+            max-width: 500px;
+            /* Decrease the input width */
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 10px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Alternate row colors in the table */
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .print-button {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container menu-container">
+  <h2 class="text-center">MiniStatement</h2>
+  <button class="btn btn-danger" onclick="goBack()">Go Back</button>
+</div>
+
+<div class="container statement-container">
+  <form id="miniStatementForm">
+    <div class="form-group">
+      <label for="accountNumber">Account Number:</label>
+      <input type="text" class="form-control" id="accountNumber" placeholder="Account Number" required>
+    </div>
+    <div class="d-flex">
+      <button type="button" class="btn btn-primary mr-3" onclick="getMiniStatement()">Get MiniStatement</button>
+      <button type="button" class="btn btn-secondary mr-5" onclick="clearMiniStatement()">Clear</button>
+      <button type="button" class="btn btn-secondary" onclick="downloadPDF()" style="margin-right: -100px">Print
+        MiniStatement (PDF)</button>
+    </div>
+  </form>
+
+  <table id="miniStatementTable" class="table">
+    <thead>
+    <tr>
+      <th>Date</th>
+      <th>Description</th>
+      <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- MiniStatement rows will be added here dynamically -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+        function goBack() {
+            window.location.href = "UserMenu.html";
+        }
+
+        function getMiniStatement() {
+            // Assume this is where you'll make an AJAX request to the server to get MiniStatement data.
+            // For simplicity, let's populate some sample data.
+            var miniStatementData = [
+                { date: '2022-01-01', description: 'Transaction 1', amount: 100.00 },
+                { date: '2022-01-05', description: 'Transaction 2', amount: -50.00 },
+                { date: '2022-01-10', description: 'Transaction 3', amount: 75.00 }
+            ];
+
+            // Clear existing rows
+            var tableBody = document.getElementById('miniStatementTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+
+            // Populate table with MiniStatement data
+            miniStatementData.forEach(function(item) {
+                var row = tableBody.insertRow(tableBody.rows.length);
+                var dateCell = row.insertCell(0);
+                var descriptionCell = row.insertCell(1);
+                var amountCell = row.insertCell(2);
+
+                dateCell.innerHTML = item.date;
+                descriptionCell.innerHTML = item.description;
+                amountCell.innerHTML = item.amount.toFixed(2);
+            });
+        }
+
+        function clearMiniStatement() {
+            // Clear the MiniStatement table
+            var tableBody = document.getElementById('miniStatementTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+        }
+
+        function downloadPDF() {
+            // Assume this is where you'll implement PDF download logic.
+            // For simplicity, let's just show an alert.
+            alert("Downloading MiniStatement as PDF");
+        }
+    </script>
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap components) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Amount</title>
+  <link rel="stylesheet" href="/css/styles.css" href="@{/css/styles.css}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: orange;
+    }
+
+    .menu-container {
+      background-color: #007bff;
+      color: #ffffff;
+      /* White text color */
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    h2 {
+      margin-bottom: 40px;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      /* Bootstrap primary color for button */
+      border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      /* Darker shade on hover */
+      border-color: #0056b3;
+    }
+
+    .add-container {
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    #accountNumber,
+    #addAmount {
+      max-width: 350px;
+      /* Set a maximum width for the input fields */
+    }
+
+    #addMessage {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    #addTable {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    #addTable th,
+    #addTable td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    #addTable th {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    #addTable tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .add-form .form-group {
+      display: flex;
+      margin-bottom: 30px;
+    }
+
+    .add-form .form-group label {
+      width: 150px;
+      margin-right: 5px;
+      font-size: 17px; /* Adjust the font size as needed */
+      font-weight: bold; /* Make the text bold */
+    }
+
+    .add-form .form-group input {
+      flex: 1;
+      font-size: 18px; /* Adjust the font size as needed */
+    }
+
+  </style>
+</head>
+
+<body>
+<div class="container menu-container">
+  <h2 class="text-center">Add Amount</h2>
+  <button class="btn btn-danger" onclick="goBack()">Go Back</button>
+</div>
+
+<div class="container add-container">
+  <form align="center" id="addForm" class="add-form">
+    <div class="form-group">
+      <label for="accountNumber">Account Number:</label>
+      <input type="text" class="form-control" id="accountNumber" placeholder="Enter Account Number" required>
+
+      <div class="form-group" style="margin-left: 110px;">
+        <label for="addAmount">Enter Amount :</label>
+        <input type="text" class="form-control" id="addAmount" placeholder="Enter Amount" required>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="addAmount()">Add Amount</button>
+  </form>
+
+  <table id="addTable" class="table" style="display:none;">
+    <thead>
+    <tr>
+      <th>Account Number</th>
+      <th>Transaction Date</th>
+      <th>Added Amount</th>
+    </tr>
+    </thead>
+    <tbody id="addTableBody">
+    <!-- Deposit rows will be added here dynamically -->
+    <tr>
+      <td>123456</td>
+      <td>2024-01-21</td>
+      <td>$1000.00</td>
+    </tr>
+    <tr>
+      <td>789012</td>
+      <td>2024-01-21</td>
+      <td>$200.00</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div id="addMessage"></div>
+</div>
+
+<script>
+    function goBack() {
+      window.location.href = "UserMenu.html";
+    }
+
+    function addAmount() {
+      var accountNumberInput = document.getElementById('accountNumber');
+      var addAmountInput = document.getElementById('addAmount');
+
+      var accountNumber = accountNumberInput.value.trim();
+      var addedAmount = parseFloat(addAmountInput.value);
+
+      // Check if the entered amount is valid
+      if (isNaN(addedAmount) || addedAmount <= 0) {
+        alert("Please enter a valid amount to add.");
+        return;
+      }
+
+      // Placeholder for actual logic
+      // For simplicity, let's assume a successful addition with the current date
+      var currentDate = new Date().toLocaleDateString();
+
+      // Display the deposit table
+      var addTable = document.getElementById('addTable');
+      addTable.style.display = 'block';
+
+      // Display the deposit message
+      var addMessage = document.getElementById('addMessage');
+      addMessage.innerHTML = 'Amount added successfully!';
+
+      // Clear the input fields
+      accountNumberInput.value = '';
+      addAmountInput.value = '';
+
+      // Add a new row to the deposit table
+      var addTableBody = document.getElementById('addTableBody');
+      var newRow = addTableBody.insertRow(addTableBody.rows.length);
+      var accountNumberCell = newRow.insertCell(0);
+      var dateCell = newRow.insertCell(1);
+      var amountCell = newRow.insertCell(2);
+
+      accountNumberCell.innerHTML = accountNumber;
+      dateCell.innerHTML = currentDate;
+      amountCell.innerHTML = '$' + addedAmount.toFixed(2);
+    }
+  </script>
+
+<!-- Bootstrap JS and Popper.js (required for Bootstrap components) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
